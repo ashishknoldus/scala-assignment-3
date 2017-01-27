@@ -8,7 +8,8 @@ package main.com.knoldus.ashish.datahandler
 /*
 * Use this class as handler of data
 * from the database and pass the data to
-* caller
+* caller.
+* Implementation is yet to be done in future assignments
 * */
 
 class DatabaseAsInputSource(source : Any) extends InputGrabber{

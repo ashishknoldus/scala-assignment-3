@@ -19,8 +19,8 @@ object Main {
     val capitalOutputFile : OutputExporter = new FileAsOutputSource("capitalizedOutput.txt")
     val wordCountOutputFile : OutputExporter = new FileAsOutputSource("wordCount.txt")
 
-    capitalOutputFile.exportTextToSource(Capitalizer.capitalizeText(inputFile.getText()))
-    wordCountOutputFile.exportTextToSource(WordCounter.wordCount(inputFile.getText()))
+    capitalOutputFile.exportText(Capitalizer.capitalizeText(inputFile.getText()))
+    wordCountOutputFile.exportText(WordCounter.wordCount(inputFile.getText()))
 
   }
 

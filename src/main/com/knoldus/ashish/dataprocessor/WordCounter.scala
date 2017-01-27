@@ -35,7 +35,8 @@ object WordCounter {
 
     val stringStore = new StringBuilder("")
 
-    hashMap.toList.sortBy(_._1).foreach( pair => {
+    //Sort by occurrence of a word
+    hashMap.toList.sortBy(_._2).foreach( pair => {
       stringStore.append(f"${pair._1}%20s ~> ${pair._2}\n")
     })
 

@@ -7,7 +7,10 @@ package main.com.knoldus.ashish.datahandler
 * This class helps in saving data to DB
 * Implementation is yet to be done in future assignments
 * */
-class DatabaseAsOutputSource(source : Any) extends OutputExporter{
+final class DatabaseAsOutputSource(source : Any) extends OutputExporter{
+
+  //Database name, table name combination
+  override val outputLocation = " "
 
   override def exportText(text: String): Boolean = {
 

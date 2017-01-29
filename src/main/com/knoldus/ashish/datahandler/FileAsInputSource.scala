@@ -1,5 +1,7 @@
 package main.com.knoldus.ashish.datahandler
 
+import java.io.{FileNotFoundException, IOException}
+
 import scala.io.Source
 
 /**
@@ -9,20 +11,46 @@ import scala.io.Source
 /*
 * This class is to get text from a file on directory
 * */
-class FileAsInputSource(sourceArg : String) extends InputGrabber{
+final class FileAsInputSource(sourceArg : String) extends InputGrabber{
 
   val source : String = sourceArg
 
+  //The directory is hard coded - with DI it can be mentioned in XML file
+  override val inputLocation = "/home/ashish/Documents/workspace/scala-assignment-3/src/resources/input/"
+
+  @throws[Exception]
   override def getText(): String = {
 
     /* The previous method of getting text out of the file
      wasn't efficient way. Because mkString reads file byte by byte */
 
     val text : StringBuilder = new StringBuilder("")
-    for(line <- Source.fromFile(s"/home/ashish/Documents/workspace/scala-assignment-3/src/resources/input/${source}").getLines())
-      text.append(s"$line\n")
+    try {
 
-    text.toString()
+        for (line <- Source.fromFile(s"$inputLocation$source").getLines())
+          text.append(s"$line\n")
+
+        //Remove extra \n from end
+        text.deleteCharAt(text.length - 1)
+
+    } catch {
+        case ex:FileNotFoundException => {
+          println("The given file doesn't exist. Please provide a correct file name.")
+          println(ex.getMessage)
+        }
+        case ex:IOException => {
+          println(s"IOException occurred while trying to use (open / read) $source")
+          println(ex.getMessage)
+          text.delete(0, text.length)
+        }
+        case ex:Exception => {
+          println("Some exception occurred ; please handle that exception")
+          println(ex.getMessage)
+          //If unknown Exception occurred throw it. Analyze it in Unit testing!
+          throw ex
+        }
+    }
+    text.toString
   }
 
 }

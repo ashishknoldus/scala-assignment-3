@@ -11,7 +11,12 @@ class Capitalizer {
 object Capitalizer {
 
   def capitalizeText(text : String) : String = {
-    text.toUpperCase()
+    if(text.length == 0) {
+      ""
+    }
+    else {
+      text.toUpperCase()
+    }
   }
 
 }

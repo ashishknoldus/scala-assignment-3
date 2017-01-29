@@ -12,8 +12,10 @@ package main.com.knoldus.ashish.datahandler
 * Implementation is yet to be done in future assignments
 * */
 
-class DatabaseAsInputSource(source : Any) extends InputGrabber{
+final class DatabaseAsInputSource(source : Any) extends InputGrabber{
 
+  //Database name, table name combination
+  override val inputLocation = " "
 
   override def getText(): String = {
     "This method needs implementation"//

@@ -9,14 +9,26 @@ import java.io.{File, FileNotFoundException, IOException, PrintWriter}
 /*
 * This class is to save text to a file on directory
 * */
-class FileAsOutputSource(sourceArg : String) extends OutputExporter{
+
+final class FileAsOutputSource(sourceArg : String) extends OutputExporter{
 
   val source : String = sourceArg
 
+  //The directory is hard coded - with DI it can be mentioned in XML file
+  override val outputLocation = "/home/ashish/Documents/workspace/scala-assignment-3/src/resources/output/"
+
   override def exportText(text: String): Boolean = {
 
-    val writer = new PrintWriter(new File(s"/home/ashish/Documents/workspace/scala-assignment-3/src/resources/output/${source}"))
+    val outputFile = new File(s"$outputLocation$source")
+    val writer = new PrintWriter(outputFile)
+
+    if(text.length == 0) {
+      return true
+    }
+
     writer.println(text)
+
+    //PrintWriter object doesn't throw Exception so using its checkError() method
 
     if(writer.checkError()) {
         println("Couldn't write data to file. Error!")
@@ -28,4 +40,5 @@ class FileAsOutputSource(sourceArg : String) extends OutputExporter{
     true
 
   }
+
 }

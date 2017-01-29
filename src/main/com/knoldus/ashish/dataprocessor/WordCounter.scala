@@ -14,16 +14,26 @@ object WordCounter {
 
   def wordCount(text : String) : String = {
 
-    val textArray : Array[String] = text.replaceAll("[.,]+","").split("\\s++")
+    if(text.length == 0) return ""
+
+    /* Considering these as word separator . , ( ) ! ; ' " : ? [ ] { } _ - + = */
+    val textArray : Array[String] = text.replaceAll("[.,()!;'\":?\\]\\[\\{\\}_\\-\\+=&]+"," ").split("\\s++")
 
     val wordCountMap = new HashMap[String, Long]()
 
     textArray.foreach(word => {
 
-      if(wordCountMap.contains(word)) {
-        wordCountMap(word) += 1
-      } else {
-        wordCountMap(word) = 1
+      //Checking redundant word saves from
+      //hitting the Map, because we don't
+      // want to store its counts in Map.
+      if(word != "") {
+
+        if (wordCountMap.contains(word)) {
+          wordCountMap(word) += 1
+        } else {
+          wordCountMap(word) = 1
+        }
+
       }
 
     })

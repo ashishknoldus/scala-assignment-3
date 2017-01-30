@@ -10,12 +10,12 @@ import java.io.{File, FileNotFoundException, IOException, PrintWriter}
 * This class is to save text to a file on directory
 * */
 
-final class FileAsOutputSource(sourceArg : String) extends OutputExporter{
+final class FileAsOutputSource(directoryArg: String,sourceArg : String) extends OutputExporter{
 
   val source : String = sourceArg
 
   //The directory is hard coded - with DI it can be mentioned in XML file
-  override val outputLocation = "/home/ashish/Documents/workspace/scala-assignment-3/src/resources/output/"
+  override val outputLocation = directoryArg
 
   override def exportText(text: String): Boolean = {
 

@@ -1,6 +1,6 @@
 package main.com.knoldus.ashish.datahandler
 
-import java.io.{FileNotFoundException, IOException}
+import java.io.{File, FileNotFoundException, IOException}
 
 import scala.io.Source
 
@@ -11,12 +11,9 @@ import scala.io.Source
 /*
 * This class is to get text from a file on directory
 * */
-final class FileAsInputSource(sourceArg : String) extends InputGrabber{
+final class FileAsInputSource(sourceArg : File) extends InputGrabber{
 
-  val source : String = sourceArg
-
-  //The directory is hard coded - with DI it can be mentioned in XML file
-  override val inputLocation = "/home/ashish/Documents/workspace/scala-assignment-3/src/resources/input/"
+  val source : File = sourceArg
 
   @throws[Exception]
   override def getText(): String = {
@@ -27,7 +24,7 @@ final class FileAsInputSource(sourceArg : String) extends InputGrabber{
     val text : StringBuilder = new StringBuilder("")
     try {
 
-        for (line <- Source.fromFile(s"$inputLocation$source").getLines())
+        for (line <- Source.fromFile(source).getLines())
           text.append(s"$line\n")
 
         //Remove extra \n from end
@@ -39,7 +36,7 @@ final class FileAsInputSource(sourceArg : String) extends InputGrabber{
           println(ex.getMessage)
         }
         case ex:IOException => {
-          println(s"IOException occurred while trying to use (open / read) $source")
+          println(s"IOException occurred while trying to use (open / read) ${source.getName}")
           println(ex.getMessage)
           text.delete(0, text.length)
         }

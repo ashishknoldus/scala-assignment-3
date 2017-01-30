@@ -11,12 +11,14 @@ import org.junit.Assert._
   */
 class TestFileAsOutputSource {
 
-  val inputSource = "datafile.txt"
+  val outputDirectory = "/home/ashish/Documents/workspace/scala-assignment-3/src/resources/output/"
   val outputSource = "testFileOutput.txt"
-  val outputSourceObj : OutputExporter= new FileAsOutputSource(outputSource)
-  val outputFileRef = new File(s"${outputSourceObj.outputLocation}$outputSource")
+  val outputSourceObj : OutputExporter= new FileAsOutputSource(outputDirectory, outputSource)
 
-  val text = new FileAsInputSource(inputSource).getText()
+  val outputFileRef = new File(outputDirectory+outputSource)
+
+  val source = new File("/home/ashish/Documents/workspace/scala-assignment-3/src/resources/input/capital/datafilecapital")
+  val text = new FileAsInputSource(source).getText()
 
   @Test
   def trueWhenEmptyText() : Unit = {
@@ -38,8 +40,7 @@ class TestFileAsOutputSource {
   @Test
   def allTextIsExported(): Unit = {
     outputSourceObj.exportText(text)
-    assertEquals(outputFileRef.length, text.length+1)
-    //The output's length is one more than input text because of \n character
+    assertEquals(outputFileRef.length, text.length)
   }
 
   @Test
